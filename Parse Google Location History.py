@@ -1,6 +1,6 @@
 import json
 
-with open('Location History.json') as f:
+with open('Records.json') as f:
     # Load in Google Location History data.
     data = json.load(f)
 
