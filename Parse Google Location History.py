@@ -17,7 +17,12 @@ if os.path.isdir(path):
     json_files = []
     for root, _dirs, files in os.walk(path):
         for name in files:
-            if name.lower().endswith('.json') and name != 'Settings.json':
+            # Case-insensitive .json check; Settings.json is reported by
+            # Google's Takeout zip with a capital S, so compare the lowercased
+            # name too to stay consistent and avoid missing it on case-sensitive
+            # filesystems if the export is ever produced with a different case.
+            lower = name.lower()
+            if lower.endswith('.json') and lower != 'settings.json':
                 json_files.append(os.path.join(root, name))
     json_files.sort()
 else:
@@ -25,7 +30,7 @@ else:
 
 entries = []
 for fp in json_files:
-    with open(fp) as f:
+    with open(fp, encoding='utf-8') as f:
         # Load in Google Location History data.
         data = json.load(f)
     # Prefer the new schema; fall back to legacy for older exports.
