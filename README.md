@@ -13,8 +13,12 @@ Older tutorials concerning Google Latitude, and Google Maps' Timeline would requ
 
 ## Parse your export data
 
-1. Download `Parse Google Location History.py` and place the script in the same directory as your `Location History.json` export.
-2. Run the script from your chosen command line (`python Parse Google Location History.py`).
+1. Download `Parse Google Location History.py` and place the script in the same directory as your export.
+2. Run the script from your chosen command line, passing the path to your Location History file or folder:
+   * **Legacy export** (pre-2020, single file): `python "Parse Google Location History.py" "Location History.json"`
+   * **Current Takeout export** (2020+, folder of monthly JSONs): `python "Parse Google Location History.py" "Semantic Location History"`
+   * You can also point it at a specific year folder, e.g. `Semantic Location History/2020`, or omit the argument to default to a `Location History.json` in the current directory.
+3. A deduplicated list of unique `latitudeE7` / `longitudeE7` coordinates will be written to `output.txt`.
 
 ## Notes
 
